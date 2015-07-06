@@ -87,6 +87,30 @@ public abstract class BaseDAO<T> {
         }
         	
 	}
+	
+	public int getQuantity(String query, Object[] vals) throws Exception{
+		try{
+			Connection conn = getConnection();
+
+		PreparedStatement stmt = conn.prepareStatement(query);
+		int count = 1;
+		for(Object o: vals){
+			stmt.setObject(count, o);
+			count++;
+		}
+		stmt.executeQuery();
+		ResultSet rs = stmt.executeQuery();
+		if(rs != null && rs.next()){
+			return rs.getInt("noOfCopies");}
+		return 0;
+
+
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();		
+		return -1;
+	}
+	}
 	/**
 	 * 
 	 * @param query

@@ -103,8 +103,8 @@ public class BookDAO extends BaseDAO<Book>  {
 	@Override
 	public List<Book> extractDataFirstLevel(ResultSet rs) throws Exception {
 		List<Book> books = new ArrayList<Book>();
-		PublisherDAO pdao = new PublisherDAO(getConnection());
-		AuthorDAO aDao = new AuthorDAO(getConnection());
+//		PublisherDAO pdao = new PublisherDAO(getConnection());
+//		AuthorDAO aDao = new AuthorDAO(getConnection());
 		//GenreDAO gD
 		while(rs.next()){
 			Book b = new Book();
