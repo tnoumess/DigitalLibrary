@@ -18,7 +18,11 @@ import com.gcit.lms.domain.Publisher;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class AdministrativeService {
 
@@ -50,7 +54,7 @@ public class AdministrativeService {
 			e.printStackTrace();
 			conn.rollback();
 		} finally {
-			conn.close();
+			//conn.close();
 		}
 	}
 
@@ -71,7 +75,7 @@ public class AdministrativeService {
 			e.printStackTrace();
 			conn.rollback();
 		} finally {
-			conn.close();
+			//conn.close();
 		}
 	}
 
@@ -89,10 +93,10 @@ public class AdministrativeService {
 				conn.commit();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			conn.rollback();
 		} finally {
-			conn.close();
+			//conn.close();
 		}
 	}
 
@@ -113,7 +117,7 @@ public class AdministrativeService {
 			e.printStackTrace();
 			conn.rollback();
 		} finally {
-			conn.close();
+			//conn.close();
 		}
 	}
 
@@ -134,7 +138,7 @@ public class AdministrativeService {
 			e.printStackTrace();
 			conn.rollback();
 		} finally {
-			conn.close();
+			//conn.close();
 		}
 	}
 
@@ -155,7 +159,7 @@ public class AdministrativeService {
 			e.printStackTrace();
 			conn.rollback();
 		} finally {
-			conn.close();
+			//conn.close();
 		}
 	}
 	
@@ -209,6 +213,42 @@ public class AdministrativeService {
 			return null;
 		}
 	}
+	
+	public Map<Integer,Book> listBooksFirstLevel2(){
+
+		try {
+			Map<Integer,Book> m=new HashMap<Integer,Book>();
+			List<Book> l=(new BookDAO(conn).readAll());
+			for(Book b: l){
+				m.put(b.getBookId(), b);
+			}
+			return m;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("An error has occured");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+public Set<Book> listbook(){
+		
+		try {
+			Set<Book> s=new HashSet<Book>();
+			List<Book> l=(new BookDAO(conn).readAll());
+			for(Book p: l){
+				s.add(p);
+			}
+			return s;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("An error has occured");
+			e.printStackTrace();
+			return null;
+		}	
+		
+	}
+	
 	/**
 	 * 
 	 * @param book
@@ -217,6 +257,23 @@ public class AdministrativeService {
 
 		try {
 			new BookDAO(conn).updateBook(book);
+			conn.commit();// A must if you initially set auto commit to false
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("An error has occured");
+			e.printStackTrace();						
+		}
+		
+	}
+	/**
+	 * Update book with new publisher Id
+	 * @param book
+	 */
+	public void updatebook2(Book book){
+
+		try {
+			new BookDAO(conn).updateBook2(book);
 			conn.commit();// A must if you initially set auto commit to false
 			
 		} catch (Exception e) {
@@ -281,6 +338,24 @@ public class AdministrativeService {
 		}
 	}
 	
+	public Map<Integer,String> listAuthorsFirstLevel2(){
+
+		try {
+			Map<Integer,String> m=new HashMap<Integer,String>();
+			List<Author> l=(new AuthorDAO(conn).readAll());
+			for(Author a: l){
+				m.put(a.getAuthorId(), a.getAuthorName());
+			}
+			return m;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("An error has occured");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 	
 	public void updateAuthor(Author author){
 
@@ -341,6 +416,23 @@ public class AdministrativeService {
 	}
 	
 	
+	public Map<Integer,String> listborrower2(){
+
+		try {
+			Map<Integer,String> m=new HashMap<Integer,String>();
+			List<Borrower> l=(new BorrowerDAO(conn).readAll());
+			for(Borrower b: l){
+				m.put(b.getBorrowerId(), b.getBorrowerName());
+			}
+			return m;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("An error has occured");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	public void updateBorrower(Borrower borrower){
 
 		try {
@@ -398,6 +490,22 @@ public class AdministrativeService {
 		}
 	}
 	
+	public Map<Integer,String> listLibrary2(){
+
+		try {
+			Map<Integer,String> m=new HashMap<Integer,String>();
+			List<Library> l=(new LibraryBranchDAO(conn).readAll());
+			for(Library lb: l){
+				m.put(lb.getBranchId(), lb.getBranchName());
+			}
+			return m;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("An error has occured");
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	public void updateLibrary(Library library){
 
@@ -455,7 +563,41 @@ public class AdministrativeService {
 		}
 	}
 	
+	public Map<Integer,String> listpublisher2(){
+
+		try {
+			Map<Integer,String> m=new HashMap<Integer,String>();
+			List<Publisher> l=(new PublisherDAO(conn).readAll());
+			for(Publisher p: l){
+				m.put(p.getPublisherId(), p.getPublisherName());
+			}
+			return m;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("An error has occured");
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
+	
+	public Set<Publisher> listpublisher3(){
+		
+		try {
+			Set<Publisher> s=new HashSet<Publisher>();
+			List<Publisher> l=(new PublisherDAO(conn).readAll());
+			for(Publisher p: l){
+				s.add(p);
+			}
+			return s;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("An error has occured");
+			e.printStackTrace();
+			return null;
+		}	
+		
+	}
 	public void updatePublisher(Publisher publisher){
 
 		try {
@@ -512,20 +654,44 @@ public class AdministrativeService {
 		}
 	}
 	
-	
-	public void updateGenre(Genre genre){
+	public Map<Integer,String> listGenre2(){
 
 		try {
-			new GenreDAO(conn).update(genre);
-			conn.commit();// A must if you initially set auto commit to false
-			
+			Map<Integer,String> m=new HashMap<Integer,String>();
+			List<Genre> l=(new GenreDAO(conn).readAll());
+			for(Genre g: l){
+				m.put(g.getGenreId(), g.getGenreName());
+			}
+			return m;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("An error has occured");
 			e.printStackTrace();
-						
+			return null;
 		}
-		
+	}
+	
+	
+	public void updateGenre(Genre genre) throws Exception{
+
+		//try {
+			
+			if (genre == null || genre.getGenreName() == null
+					|| genre.getGenreName().length() == 0
+					|| genre.getGenreName().length() > 45) {
+				throw new Exception(
+						"Genre name cannot be empty or more than 45 Chars");
+			} else {
+			new GenreDAO(conn).update(genre);
+			conn.commit();// A must if you initially set auto commit to false
+			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("An error has occured");
+//			//e.printStackTrace();
+//						
+//		}
+//		
 	}
 	
 	public void deleteGenre(Genre genre){

@@ -131,6 +131,26 @@ public class BookDAO extends BaseDAO<Book>  {
 		return true;
 	}
 	
+	/**
+	 * update book along with Publisher Id
+	 * @param book
+	 * @return
+	 */
+   public boolean updateBook2(Book book){
+		
+		try {
+			save("UPDATE tbl_book SET title=? ,pubId=? where (bookId=?)",new Object[] {book.getTitle(),book.getPublisher().getPublisherId(),book.getBookId()});
+			System.out.println("update executed");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("An error has occured");
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
+	}
+	
 public boolean deleteBook(Book book){
 		
 		try {

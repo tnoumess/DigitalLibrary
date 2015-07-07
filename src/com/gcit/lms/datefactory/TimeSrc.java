@@ -1,4 +1,4 @@
-package com.gcit.library.datefactory;
+package com.gcit.lms.datefactory;
 
 import java.sql.Date;
 

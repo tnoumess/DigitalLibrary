@@ -118,7 +118,7 @@ public boolean deleteAuthor(Author author){
 		
 		try {
 			save("DELETE FROM tbl_author  where (authorId=?)",new Object[] {author.getAuthorId()});
-			System.out.println("deletion completed");
+			System.out.println(" Author deletion completed");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("An error has occured");
